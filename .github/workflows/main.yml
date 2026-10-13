@@ -14,8 +14,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Unzip frameXTV project
-        run: unzip -o frameXTV-FireTV-project.zip
+      - name: Unzip frameXTV cursor project
+        run: unzip -o frameXTV-FireTV-cursor-project.zip
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -29,18 +29,18 @@ jobs:
           "$SDKMANAGER" --version
           yes | "$SDKMANAGER" --licenses || true
           "$SDKMANAGER" "platform-tools" "platforms;android-35" "build-tools;35.0.0"
-          
+
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
 
       - name: Build frameXTV APK
-        working-directory: frameXTV-FireTV
+        working-directory: frameXTV-FireTV-cursor
         run: gradle --no-daemon assembleDebug
 
       - name: Upload frameXTV APK
         uses: actions/upload-artifact@v4
         with:
           name: frameXTV-FireTV-APK
-          path: frameXTV-FireTV/app/build/outputs/apk/debug/app-debug.apk
+          path: frameXTV-FireTV-cursor/app/build/outputs/apk/debug/app-debug.apk
